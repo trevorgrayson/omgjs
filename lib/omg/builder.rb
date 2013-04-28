@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'opal'
 
 module Omg
   class Builder
