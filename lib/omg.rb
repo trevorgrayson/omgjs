@@ -1,12 +1,13 @@
 Dir["tasks/**/*.rake"].each { |ext| load ext } if defined?(Rake)
 
-if Rails.env.development?
-  ActiveSupport::Dependencies.autoload_paths << %W(#{Rails.root}/lib/auto_reload) 
-end
-
 require 'omg/engine'
 require 'omg/acts_as_javascript'
 require 'omg/builder'
+
+ActionDispatch::Callbacks.to_prepare do
+  Rails.logger.warn "OMG, updating!"
+  Omg::Builder.build('app/models')
+end if Rails && Rails.env.development?
 
 module Omg
 end

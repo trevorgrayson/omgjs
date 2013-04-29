@@ -1,17 +1,18 @@
 require 'rubygems'
+require 'opal'
 
 module Omg
   class Builder
-    OPAL_RESOUCES = [ './javascript/active_model.js' ]
+    #OPAL_RESOUCES = [ "#{File.dirname(__FILE__)}/../../vendor/javascript/active_model.js" ]
 
     class << self
       def build(dir)
         js_file = File.open("#{Rails.root}/public/omg.js",'w')
 
         #build OMG resources
-        OPAL_RESOUCES.each do |file|
-          js_file.write( File.read(file) )
-        end
+        #OPAL_RESOUCES.each do |file|
+        #  js_file.write( File.read(file) )
+        #end
 
         #read and build models
         model_files = Dir.glob("#{dir}/*")
