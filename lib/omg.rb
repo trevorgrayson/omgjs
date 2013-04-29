@@ -5,7 +5,6 @@ require 'omg/acts_as_javascript'
 require 'omg/builder'
 
 ActionDispatch::Callbacks.to_prepare do
-  Rails.logger.warn "OMG, updating!"
   Omg::Builder.build('app/models')
 end if Rails && Rails.env.development?
 

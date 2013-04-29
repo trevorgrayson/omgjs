@@ -3,7 +3,8 @@ require 'opal'
 
 module Omg
   class Builder
-    #OPAL_RESOUCES = [ "#{File.dirname(__FILE__)}/../../vendor/javascript/active_model.js" ]
+    #OPAL_RESOUCES = [ "#{File.dirname(__FILE__)}/../../vendor/javascript/opal.js",
+    # "#{File.dirname(__FILE__)}/../../vendor/javascript/active_model.js" ]
 
     class << self
       def build(dir)
