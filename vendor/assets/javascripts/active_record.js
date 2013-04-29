@@ -18,8 +18,10 @@
         xmlDoc = new XMLHttpRequest();
         xmlDoc.onload = this.build ;
       }
-      xmlDoc.open( "GET", this.url(), true );
+      xmlDoc.open( "GET", this.url(id), false ); //synchronous for now
       xmlDoc.send( null );
+
+      return JSON.parse( xmlDoc.responseText )
 
     });
 
@@ -33,14 +35,15 @@
       var _a, _b, _c;if (id == null) {
         id = nil
       }
-      return "/" + (((_a = ((_b = this).$pluralize || $mm('pluralize')).call(_b, ((_c = this).$name || $mm('name')).call(_c))).$downcase || $mm('downcase')).call(_a)) + "/" + (id) + ".json"
+      return "/" + (((_a = ((_b = this).$pluralize || $mm('pluralize')).call(_b, ((_c = this).$name || $mm('name')).call(_c))).$downcase || $mm('downcase')).call(_a)) + "/" + id.toString() + ".json"
     });
 
     Base._defs('$pluralize', function(word) {
       return "" + (word) + "s"
     });
 
-    Base._defs('attr_accessible', function(word) {
+    //Place holding to avoid errors for now
+    Base._defs('$attr_accessible', function(word) {
     });
 
     return nil;
