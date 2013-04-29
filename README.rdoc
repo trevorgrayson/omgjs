@@ -1,10 +1,8 @@
-= OMG
+= The Opal Model Generator (OMG)
 
 The goal of this project is to unobtrusively make javascript objects for each desired ActiveModel implementation in a rails project.  These javascript objects will allow you to run the expecting fetching, deleting, and saving methods expected as if you were in a rails environment.
 This project isn't disimilar to Vienna (https://github.com/opal/vienna), but is trying out going a step further by not requiring the user to rewrite the objects.  
 
-
-The first is Opal's required library.  The second, active_record, is the equivilent of ActiveRecord::Base in rails, and will do all the heavy lifting for these objects. Lastly, omg, will have a list of all your ActiveModels in the app/models/ directory.  You will rebuild this file in development everytime you refresh your browser.
 
 Long way to go with this project, but presently if you include the omg gem 
 
@@ -20,7 +18,11 @@ Presuming you are using rails assets, you're going to want to add the following 
 
 otherwise you'll do the traditional linking in your public folder:
 
+    <script type="text/javascript" src="/javascripts/opal.js"></script>
+    <script type="text/javascript" src="/javascripts/active_record.js"></script>
     <script type="text/javascript" src="/javascripts/omg.js"></script>
+
+The first is Opal's required library.  The second, active_record, is the equivilent of ActiveRecord::Base in rails, and will do all the heavy lifting for these objects. Lastly, omg, will have a list of all your ActiveModels in the app/models/ directory.  You will rebuild this file in development everytime you refresh your browser.
 
 You should be able to immediately load a page and find your models under the "Opal" namespace:
 
