@@ -3,11 +3,13 @@
   return (function(__base, __super){
     function ActiveRecord() {};
     ActiveRecord = __klass(__base, __super, "ActiveRecord", ActiveRecord);
+    function Base() {};
+    Base = __klass(__base, __super, "Base", Base);
 
-    var def = ActiveRecord.prototype, __scope = ActiveRecord._scope;
+    var def = ActiveRecord.prototype, __scope = Base._scope;
     var xmlDoc;
 
-    ActiveRecord._defs('find', function(id) {
+    Base._defs('find', function(id) {
       if (typeof window.ActiveXObject != 'undefined' ) {
         xmlDoc = new ActiveXObject("Microsoft.XMLHTTP");
         xmlDoc.onreadystatechange = this.build ;
@@ -21,21 +23,24 @@
 
     });
 
-    ActiveRecord._defs('build', function(id) {
-      console.log('building')
+    Base._defs('build', function(id) {
+      //cache in a hash
       console.log(xmlDoc.responseText);
+      return JSON.parse(xmlDoc.responseText);
     });
 
-    ActiveRecord._defs('url', function(id) {
+    Base._defs('url', function(id) {
       var _a, _b, _c;if (id == null) {
         id = nil
       }
-      return "/" + (((_a = ((_b = this).$pluralize || $mm('pluralize')).call(_b, ((_c = this).$name || $mm('name')).call(_c))).$downcase || $mm('downcase')).call(_a)) + "/" + (id)
+      return "/" + (((_a = ((_b = this).$pluralize || $mm('pluralize')).call(_b, ((_c = this).$name || $mm('name')).call(_c))).$downcase || $mm('downcase')).call(_a)) + "/" + (id) + ".json"
     });
 
-    ActiveRecord._defs('$pluralize', function(word) {
-      
+    Base._defs('$pluralize', function(word) {
       return "" + (word) + "s"
+    });
+
+    Base._defs('attr_accessible', function(word) {
     });
 
     return nil;
