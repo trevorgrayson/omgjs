@@ -7,7 +7,7 @@ module Omg
 
     class << self
       def build(dir)
-        js_file = File.open("#{Rails.root}/public/omg.js",'w')
+        js_file = File.open("#{Rails.root}/app/assets/javascripts/omg.js",'w')
 
         #build OMG resources
         #OPAL_RESOUCES.each do |file|
