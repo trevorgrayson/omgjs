@@ -9,7 +9,7 @@
     var def = ActiveRecord.prototype, __scope = Base._scope;
     var xmlDoc;
 
-    Base._defs('find', function(id) {
+    Base._defs('find', function(id, params) {
       if (typeof window.ActiveXObject != 'undefined' ) {
         xmlDoc = new ActiveXObject("Microsoft.XMLHTTP");
         xmlDoc.onreadystatechange = this.build ;
@@ -18,7 +18,7 @@
         xmlDoc = new XMLHttpRequest();
         xmlDoc.onload = this.build ;
       }
-      xmlDoc.open( "GET", this.url(id), false ); //synchronous for now
+      xmlDoc.open( "GET", this.url(id) + this.paramsToQuery(params), false ); //synchronous for now
       xmlDoc.send( null );
 
       return JSON.parse( xmlDoc.responseText )
@@ -39,6 +39,16 @@
         $mm('pluralize')).call(_b, ((_c = this).$name 
         || $mm('name')).call(_c))).$downcase 
         || $mm('downcase')).call(_a)) + (id == nil || id == 'all' ? '' : "/" + id.toString() ) + ".json"
+    });
+
+    Base._defs('paramsToQuery', function(params) {
+      s = '?';
+
+      for(var k in params) {
+        s += 'object['+ encodeURIComponent(k) + ']=' + encodeURIComponent(params[k]) + '&';
+      }
+
+      return s.substring(0,s.length - 1);
     });
 
     Base._defs('save',function() {

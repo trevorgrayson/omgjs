@@ -29,5 +29,8 @@ You should be able to immediately load a page and find your models under the "Op
     <script>
       Opal.YourModelName.find(1)
 
-      Opal.YourModelName.find('all')
+      Opal.YourModelName.find('all', {conditions: 'id > 2'})
+
+
+      
     </script>
