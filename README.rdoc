@@ -4,9 +4,9 @@ The goal of this project is to unobtrusively make javascript objects for each de
 This project isn't disimilar to Vienna (https://github.com/opal/vienna), but is trying out going a step further by not requiring the user to rewrite the objects.  
 
 
-Long way to go with this project, but presently if you include the omg gem 
+Long way to go with this project, but presently if you include the omgjs gem 
 
-    gem 'omg', :git => 'https://github.com/trevorgrayson/omg-rails-js-models.git'
+    gem 'omgjs', :git => 'https://github.com/trevorgrayson/omgjs.git'
 
 and reference the required javascript files in your layout:
 
