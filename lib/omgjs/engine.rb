@@ -1,6 +1,6 @@
-module OmgAssets
+module OmgjsAssets
   class Engine < ::Rails::Engine
-    initializer "omg.load_static_assets" do |app|
+    initializer "omgjs.load_static_assets" do |app|
       app.middleware.use ::ActionDispatch::Static, "#{root}/vendor"
     end
   end

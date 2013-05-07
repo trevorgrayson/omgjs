@@ -1,4 +1,4 @@
-module Omg
+module Omgjs
   module ActsAsJavascript
     extend ActiveSupport::Concern
 
@@ -22,4 +22,4 @@ module Omg
   end
 end
 
-ActiveRecord::Base.send :include, Omg::ActsAsJavascript
+ActiveRecord::Base.send :include, Omgjs::ActsAsJavascript

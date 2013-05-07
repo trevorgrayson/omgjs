@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'opal'
 
-module Omg
+module Omgjs
   class Builder
     #OPAL_RESOUCES = [ "#{File.dirname(__FILE__)}/../../vendor/javascript/opal.js",
     # "#{File.dirname(__FILE__)}/../../vendor/javascript/active_model.js" ]

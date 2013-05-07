@@ -51,10 +51,22 @@
       return s.substring(0,s.length - 1);
     });
 
-    Base._defs('save',function() {
+    def.$save = function() {
       //{'object': this}
-      JSON.stringify(this)
-    });
+      //JSON.stringify(this)
+      if (typeof window.ActiveXObject != 'undefined' ) {
+        xmlDoc = new ActiveXObject("Microsoft.XMLHTTP");
+        xmlDoc.onreadystatechange = this.build ;
+      }
+      else {
+        xmlDoc = new XMLHttpRequest();
+        xmlDoc.onload = this.build;
+      }
+      xmlDoc.open( "POST", this.url(this.id), false ); //synchronous for now
+      xmlDoc.send( JSON.stringify(this) );
+
+      //return JSON.parse( xmlDoc.responseText )
+    };
 
     //should I be doing this the JS way?
     Base._defs('$new', function(word) {
