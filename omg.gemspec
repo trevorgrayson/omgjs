@@ -5,7 +5,7 @@ require "omg/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "omg"
+  s.name        = "omgjs"
   s.version     = Omg::VERSION
   s.authors     = ["trevor grayson"]
   s.email       = ["trevor@trevorgrayson.com"]
