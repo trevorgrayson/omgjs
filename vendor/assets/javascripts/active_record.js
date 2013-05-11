@@ -26,9 +26,11 @@
       return this.build( response )
     });
 
-    def.$save = function() {
+    def.save = function() {
       this.request( this.url(this.id), params, "PUT" );
     };
+
+    //def reload
 
     Base._defs('request', function(url, params, action) {
       if(action == null) { action = "GET" }
@@ -103,3 +105,4 @@
     return nil;
   })(self, null)
 })(Opal);
+OMG = Opal;
