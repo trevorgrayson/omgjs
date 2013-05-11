@@ -1,8 +1,9 @@
 (function(__opal) {
   var self = __opal.top, __scope = __opal, nil = __opal.nil, $mm = __opal.mm, __breaker = __opal.breaker, __slice = __opal.slice, __klass = __opal.klass;
   return (function(__base, __super){
+    //TODO Let's get ActiveModel, ActiveResource in here
     function ActiveRecord() {};
-    ActiveRecord = __klass(__base, __super, "ActiveRecord", ActiveRecord);
+    ActiveRecord = __klass(__base, __super, "ActiveRecord",  ActiveRecord);
     function Base() {};
     Base = __klass(__base, __super, "Base", Base);
 
@@ -10,25 +11,50 @@
     var xmlDoc;
 
     Base._defs('find', function(id, params) {
-      if (typeof window.ActiveXObject != 'undefined' ) {
-        xmlDoc = new ActiveXObject("Microsoft.XMLHTTP");
-        xmlDoc.onreadystatechange = this.build ;
-      }
-      else {
-        xmlDoc = new XMLHttpRequest();
-        xmlDoc.onload = this.build ;
-      }
-      xmlDoc.open( "GET", this.url(id) + this.paramsToQuery(params), false ); //synchronous for now
-      xmlDoc.send( null );
-
-      return JSON.parse( xmlDoc.responseText )
+      //should be going through new function
+      return this.build( this.request(this.url(id), params) );
 
     });
 
     Base._defs('build', function(id) {
       //cache in a hash
-      console.log(xmlDoc.responseText);
-      o = JSON.parse(xmlDoc.responseText);
+      return this.new(JSON.parse(xmlDoc.responseText));
+    });
+
+    Base._defs('create', function(params) {
+      response = this.request( this.url(), params, "POST" );
+      return this.build( response )
+    });
+
+    def.$save = function() {
+      this.request( this.url(this.id), params, "PUT" );
+    };
+
+    Base._defs('request', function(url, params, action) {
+      if(action == null) { action = "GET" }
+      var body, query = null;
+
+      if (typeof window.ActiveXObject != 'undefined' ) {
+        xmlDoc = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      else {
+        xmlDoc = new XMLHttpRequest();
+      }
+
+      if( action == "GET" ) {
+        url =  url + '?' + this.paramsToQuery(params);
+      } else {
+        body = JSON.stringify(params);
+      }
+
+      xmlDoc.open( action, url, false ); //synchronous for now?
+      //Requiring this to be JSON for now
+      xmlDoc.setRequestHeader("Content-Type","application/json");
+      xmlDoc.setRequestHeader("Accepts","application/json");
+      xmlDoc.send( body );
+
+      return xmlDoc.responseText;
+      
     });
 
     Base._defs('url', function(id) {
@@ -42,7 +68,7 @@
     });
 
     Base._defs('paramsToQuery', function(params) {
-      s = '?';
+      s = '';
 
       for(var k in params) {
         s += 'object['+ encodeURIComponent(k) + ']=' + encodeURIComponent(params[k]) + '&';
@@ -51,25 +77,16 @@
       return s.substring(0,s.length - 1);
     });
 
-    def.$save = function() {
-      //{'object': this}
-      //JSON.stringify(this)
-      if (typeof window.ActiveXObject != 'undefined' ) {
-        xmlDoc = new ActiveXObject("Microsoft.XMLHTTP");
-        xmlDoc.onreadystatechange = this.build ;
-      }
-      else {
-        xmlDoc = new XMLHttpRequest();
-        xmlDoc.onload = this.build;
-      }
-      xmlDoc.open( "POST", this.url(this.id), false ); //synchronous for now
-      xmlDoc.send( JSON.stringify(this) );
-
-      //return JSON.parse( xmlDoc.responseText )
-    };
 
     //should I be doing this the JS way?
-    Base._defs('$new', function(word) {
+    Base._defs('new', function(params) {
+      var m = new this;
+      var p;
+      for( p in params ) {
+        m[p] = params[p];
+      }
+
+      return m;
     });
 
     Base._defs('$pluralize', function(word) {
