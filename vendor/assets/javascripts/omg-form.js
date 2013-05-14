@@ -9,7 +9,7 @@ OMG = {
 
       }
     }
-  }
+  },
 
   onsubmit: function(e) {
     var form = e.target;
